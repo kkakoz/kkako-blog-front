@@ -65,6 +65,9 @@ export default {
       if (key == 3) {
         this.$router.push('/time_line')
       }
+      if (key == 5) {
+        this.$router.push('/blog')
+      }
       if (key == 6) {
         this.dialogFormVisible = true
       }
@@ -103,6 +106,7 @@ export default {
 .leftbox {
   width: 40%;
   display: inline-flex;
+  margin-top: 10px;
 }
 
 #title {

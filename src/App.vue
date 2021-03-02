@@ -50,16 +50,13 @@ export default {
 }
 
 #main-container {
-  position:fixed;
-  height:100%;
+  
   width:100%;
-
 }
 
 #main {
   /* margin: 10px 20% 0 20%; */
   padding: 0;
-  height: 100%;
   width: 780px;
   margin: 10px auto;
 }

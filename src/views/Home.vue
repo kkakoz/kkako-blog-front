@@ -1,28 +1,58 @@
 <template>
   <div class="home">
-    <div class="article">
+    <div v-for="item in articles" v-bind:key="item.id" class="article" >
       <img class="leftbox" src="../assets/avatar.webp" height="100%">
       <div class="rightbox">
         <div class="timeh">
-          <i class="el-icon-time inlineflex"></i><p class="inlineflex">2021-1-5 11:01</p>
+          <i class="el-icon-time"></i>&nbsp;&nbsp;<p class="inlineflex">{{item.create_time}}</p>
+        </div>
+        <div class="title"><b>{{item.title}}</b></div>
+        <div class="type"><i class="el-icon-folder inlineflex"></i>&nbsp;我的分类</div>
+        <div class="content">
+          {{item.content}}
         </div>
       </div>
     </div>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+
+  },
+  data() {
+    return {
+      articles: [
+        {
+          id: 1,
+          title: "我的第一篇博客",
+          type: "分类",
+          content: "内容",
+          create_time: "2020-1-5 11:01",
+        },
+        {
+          id: 2,
+          title: "我的第一篇博客",
+          type: "分类",
+          content: "内容",
+          create_time: "2020-1-5 11:01",
+        },
+        {
+          id: 3,
+          title: "我的第一篇博客",
+          type: "分类",
+          content: "内容",
+          create_time: "2020-1-5 11:01",
+        },
+      ]
+    }
   }
 }
+
 </script>
 
 
@@ -40,12 +70,12 @@ export default {
   transition: box-shadow .3s ease;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  font-family: 'Source Han Serif SC','Source Han Serif','source-han-serif-sc','PT Serif','SongTi SC','MicroSoft Yahei',Georgia,serif;
 }
 
 .leftbox {
   float: left;
-  display: inline-flex;
+  display: block;
   height: 300px;
   width: 60%;
 }
@@ -53,17 +83,38 @@ export default {
 .rightbox {
   display: inline-flex;
   width: 40%;
+  flex-direction: column;
 }
 
 .timeh {
   margin: 10px 10% 0 10%;
-  /* flex-direction: row-reverse; */
-  /* justify-content: flex-end; */
   text-align: right;
-  width: 100%;
+  font-size: 15px;
+}
+
+.title {
+  margin-left: 20px;
+  text-align: left;
+  font-size: 30px;
+}
+
+.content {
+  margin-left: 20px;
+  margin-top: 20px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.type {
+  margin-left: 20px;
+  margin-top: 20px;
+  text-align: left;
 }
 
 .inlineflex {
   display: inline-flex;
 }
 </style>
+
+
+
