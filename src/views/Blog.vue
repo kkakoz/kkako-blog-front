@@ -20,14 +20,14 @@ export default {
   name: 'blog',
   data() {
     return {
-      content: '## wode diyti[oan boke neirong'
+      content: '## wode diyti[oan boke neirong\n ### 333'
     }
+  },
+  methods: {
   }
 }
 </script>
 
 <style scoped>
-.v-note-navigation-title {
-  display: none !important;
-}
+
 </style>

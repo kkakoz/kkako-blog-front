@@ -50,7 +50,6 @@ export default {
 }
 
 #main-container {
-  
   width:100%;
 }
 

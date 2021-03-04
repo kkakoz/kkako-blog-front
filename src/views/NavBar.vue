@@ -18,7 +18,22 @@
             <el-menu-item index="3">时间轴</el-menu-item>
             <el-menu-item index="4">关于我</el-menu-item>
             <el-menu-item index="5"><i class="el-icon-search"></i></el-menu-item>
-            <el-menu-item index="6">登录</el-menu-item> 
+            <el-menu-item v-if="!$store.state.user.username" index="6">
+              登录
+            </el-menu-item> 
+            <el-menu-item v-else index="7">
+              <el-dropdown trigger="click" @command="handleCommand">
+                <span class="el-dropdown-link">
+                  <i class="el-icon-s-operation"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="blogEdit">写博客</el-dropdown-item>
+                  <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+
+            </el-menu-item>
+
           </el-menu>
       </div>
 
@@ -26,11 +41,11 @@
       :visible.sync="dialogFormVisible"
       >
         <el-form :model="form">
-          <el-form-item label="用户名">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="邮箱">
+            <el-input v-model="form.email"></el-input>
           </el-form-item>
           <el-form-item label="密码" >
-            <el-input v-model="form.pwd" autocomplete="off"></el-input>
+            <el-input type="password" v-model="form.pwd" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -51,14 +66,14 @@ export default {
       activeIndex: '1',
       dialogFormVisible: false,
       form: {
-        name: '',
+        email: '',
         pwd: '',
       },
     }
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      console.log(this.$store.state.user)
       if (key == 1) {
         this.$router.push('/')
       }
@@ -79,13 +94,27 @@ export default {
       console.log('close')
     },
     login() {
-      console.log("login")
-      BlogLogin({
-        username: 'zhangsan',
-        password: 'lisi'
-      }).then(res => {
-        console.log(res)
+      BlogLogin(this.form).then(res => {
+        if (res.data.code == 200) {
+          this.$message({
+            showClose: true,
+            message: '登录成功',
+            type: 'success'
+          });
+          localStorage.setItem('user', res.data.data)
+          this.$store.commit('login', res.data.data)
+          this.dialogFormVisible = false
+        } else {
+
+        }        
       })
+    },
+    handleCommand(command) {
+      if (command == 'blogEdit') {
+        this.$router.push('/blog_edit')
+      } else if (command == 'logout') {
+        this.$store.commit('logout')
+      }
     }
   }
 };
