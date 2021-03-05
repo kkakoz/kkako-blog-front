@@ -1,20 +1,33 @@
 <template>
     <div class="header">
       <div class="leftbox">
-        <div id="title" @click="home">kkako</div>
+        <div v-if="$store.state.width>1050" id="title" @click="home">kkako</div>
+        <div v-else >
+          
+        </div>
       </div>
       <div class="midbox">
         <img id="avatar" src="@/assets/avatar.webp">
       </div>
       <div class="rightbox">
-          <el-menu
+          <el-menu v-if="$store.state.width>1050"
             :default-active="activeIndex"
             class="el-menu-demo"
             mode="horizontal"
             @select="handleSelect"
           >
             <el-menu-item index="1">首页</el-menu-item>
-            <el-menu-item index="2">分类</el-menu-item>
+            <el-menu-item index="2">
+              <el-dropdown trigger="click" @command="handleCommand">
+                <span class="el-dropdown-link">
+                  分类<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-for="item in categorys" v-bind:key="item.id" command="blogEdit">写博客</el-dropdown-item>
+                  <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-menu-item>
             <el-menu-item index="3">时间轴</el-menu-item>
             <el-menu-item index="4">关于我</el-menu-item>
             <el-menu-item index="5"><i class="el-icon-search"></i></el-menu-item>
@@ -31,10 +44,10 @@
                   <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-
             </el-menu-item>
 
           </el-menu>
+          <div v-else></div>
       </div>
 
       <el-dialog 
@@ -69,6 +82,7 @@ export default {
         email: '',
         pwd: '',
       },
+      categorys: []
     }
   },
   methods: {
@@ -115,7 +129,8 @@ export default {
       } else if (command == 'logout') {
         this.$store.commit('logout')
       }
-    }
+    },
+    
   }
 };
 </script>
@@ -133,7 +148,7 @@ export default {
 }
 
 .leftbox {
-  width: 40%;
+  width: 45%;
   display: inline-flex;
   margin-top: 10px;
 }
@@ -151,7 +166,7 @@ export default {
 }
 
 .rightbox {
-  width: 40%;
+  width: 45%;
   display: inline-flex;
   flex-direction: row-reverse;
   margin-top: 10px;

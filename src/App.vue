@@ -3,6 +3,7 @@
     <nav-bar></nav-bar>
     <div id="main-container">
       <div id="main">
+        <!-- <div>{{$store.state.width}}</div> -->
         <router-view/>
       </div>
     </div>
@@ -24,17 +25,14 @@ export default {
     NavBar
   },
   data () {
-    return {
-      activeIndex: '1',
-      dialogVisible: false
-    }
   },
   methods: {
-    handleSelect (key, keyPath) {
-      console.log (key, keyPath);
-    },
-    loginClose(done) {
-      this
+  },
+  mounted() {
+    window.onresize = () => {
+      console.log("width = ")
+      console.log("=", document.body.clientWidth)
+        this.$store.commit('setWidth', document.body.clientWidth)
     }
   }
 }
@@ -56,7 +54,7 @@ export default {
 #main {
   /* margin: 10px 20% 0 20%; */
   padding: 0;
-  width: 780px;
+  width: 80%;
   margin: 10px auto;
 }
 
